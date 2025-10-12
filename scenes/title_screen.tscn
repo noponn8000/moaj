@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://bekqv27bcrhup"]
+
+[ext_resource type="Texture2D" uid="uid://bvfvf2ok84iij" path="res://title_screen.png" id="1_fgkus"]
+[ext_resource type="Script" uid="uid://camv810h007ef" path="res://scripts/title_screen.gd" id="1_sa3yf"]
+[ext_resource type="AudioStream" uid="uid://b7f3ap13kgeau" path="res://bubble_slow.wav" id="3_s4lrb"]
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_sa3yf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(160, 160)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_fgkus")
+
+[node name="StartArea" type="Area2D" parent="."]
+position = Vector2(-33, 5)
+scale = Vector2(0.25, 0.25)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StartArea"]
+position = Vector2(-7, -3)
+polygon = PackedVector2Array(-4, 51, -130, 1, -121, -66, -96, -76, 25, -22, 161, -11, 164, 27, 145, 59, 91, 59)
+
+[node name="ExitArea" type="Area2D" parent="."]
+position = Vector2(40, 5)
+scale = Vector2(0.25, 0.25)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ExitArea"]
+polygon = PackedVector2Array(6, 49, -98, 72, -121, -13, -17, -34, 69, -78, 95, -6)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HoverAudio" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_s4lrb")
+
+[connection signal="mouse_entered" from="StartArea" to="." method="_on_start_area_mouse_entered"]
+[connection signal="mouse_exited" from="StartArea" to="." method="_on_start_area_mouse_exited"]
+[connection signal="mouse_entered" from="ExitArea" to="." method="_on_exit_area_mouse_entered"]
+[connection signal="mouse_exited" from="ExitArea" to="." method="_on_exit_area_mouse_exited"]

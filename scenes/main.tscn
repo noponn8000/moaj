@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://brjlwbv2mr6fn"]
+
+[ext_resource type="PackedScene" uid="uid://b0n28eyq758nd" path="res://scenes/moaj.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://bdp1mg22bynpi" path="res://scripts/jellyfish_spawner.gd" id="3_jyhfs"]
+[ext_resource type="Script" uid="uid://cvhxx7gvbl4hy" path="res://scripts/seaweed_spawner.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://060w8dgjw20m" path="res://scripts/mine_spawner.gd" id="3_tbgi4"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="SeaweedSpawner" type="Node2D" parent="."]
+script = ExtResource("3_sugp2")
+
+[node name="JellyfishSpawner" type="Node2D" parent="."]
+script = ExtResource("3_jyhfs")
+
+[node name="MineSpawner" type="Node2D" parent="." node_paths=PackedStringArray("timer")]
+script = ExtResource("3_tbgi4")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="MineSpawner"]
+
+[node name="MOAJ" parent="." instance=ExtResource("2_0wfyh")]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="MineSpawner/Timer" to="MineSpawner" method="_on_timer_timeout"]

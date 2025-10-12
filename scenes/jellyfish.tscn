@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://47we3hshiyln"]
+
+[ext_resource type="Script" uid="uid://desqp4s5n1kja" path="res://scripts/jellyfish.gd" id="1_qayu8"]
+[ext_resource type="Texture2D" uid="uid://lkav7s0lyvji" path="res://small_jellyfish.png" id="2_52w0f"]
+[ext_resource type="Texture2D" uid="uid://bs2pljglpj0vg" path="res://bubble.png" id="3_po3rc"]
+
+[sub_resource type="Animation" id="Animation_po3rc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_52w0f"]
+resource_name = "swim"
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_71a4x"]
+_data = {
+&"RESET": SubResource("Animation_po3rc"),
+&"swim": SubResource("Animation_52w0f")
+}
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_71a4x"]
+particle_flag_disable_z = true
+gravity = Vector3(0, -5, 0)
+damping_min = 3.0000002
+damping_max = 3.0000002
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_po3rc"]
+size = Vector2(6, 7)
+
+[node name="Jellyfish" type="Node2D"]
+script = ExtResource("1_qayu8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_52w0f")
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_71a4x")
+}
+autoplay = "swim"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+z_index = -2
+z_as_relative = false
+amount = 5
+texture = ExtResource("3_po3rc")
+lifetime = 5.0
+process_material = SubResource("ParticleProcessMaterial_71a4x")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_po3rc")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
