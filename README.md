@@ -1,4 +1,4 @@
-# _MOAJ - Mother of All Jellyfish_
+# _M.O.A.J. - Mother of All Jellyfish_
 
 *A game by [cserson](https://github.com/cserson/) and [ferenc_l](https://github.com/noponn8000) for the self-hosted October 12th 2025 gamejam, made in 3 hours (excluding breaks). It won top prize, partially due to being the only entry in the jam.*
 
