@@ -1,0 +1,25 @@
+[remap]
+
+importer="font_data_image"
+type="FontFile"
+uid="uid://djb6n5pb814n2"
+path="res://.godot/imported/font_halfsize.png-0fb49539269e0a9bd05c9ef0761d44f2.fontdata"
+
+[deps]
+
+source_file="res://font_halfsize.png"
+dest_files=["res://.godot/imported/font_halfsize.png-0fb49539269e0a9bd05c9ef0761d44f2.fontdata"]
+
+[params]
+
+character_ranges=PackedStringArray("65-78", "48", "80-90", "97-122", "46", "44", "33", "63", "45", "47", "40", "41", "34", "49-57", "322", "380", "378", "263", "347", "243", "59", "58", "281", "261", "324", "39", "32")
+kerning_pairs=PackedStringArray()
+columns=8
+rows=11
+image_margin=Rect2i(0, 0, 0, 0)
+character_margin=Rect2i(0, 0, 0, 0)
+ascent=0
+descent=0
+fallbacks=[]
+compress=true
+scaling_mode=2

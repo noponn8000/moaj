@@ -3,6 +3,9 @@ extends Node2D;
 var start_hover := false;
 var exit_hover := false;
 
+func _ready() -> void:
+	%ScoreLabel.text = str(Global.high_score);
+	
 func _on_start_area_mouse_entered() -> void:
 	start_hover = true;
 	%HoverAudio.play();

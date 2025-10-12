@@ -13,6 +13,7 @@ var amplitudes := [];
 var radius := base_radius;
 
 var time := 0.0;
+var float_score := 0.0;
 
 func _ready() -> void:
 	for i in range(n_jellyfish):
@@ -28,7 +29,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	for i in range(n_jellyfish):
 		if not is_instance_valid(jellyfish[i]):
-			await get_tree().create_timer(4.0).timeout;
+			await get_tree().create_timer(2.5).timeout;
 			on_game_over();
 			return;
 		var phi := float(i) / n_jellyfish * TAU;
@@ -36,6 +37,9 @@ func _process(delta: float) -> void:
 		jellyfish[i].global_position = radius_i * Vector2(cos(TAU * time / (rotation_period) + phi), sin(TAU * time / (rotation_period) + phi));
 	
 	time += delta;
+	float_score += delta * (1.0 + log(time));
+	Global.score = round(float_score);
+	%ScoreLabel.text = str(Global.score);
 	
 	if Input.is_action_pressed("suck"):
 		radius = clamp(radius - delta * suck_speed, 20.0, base_radius);
@@ -43,4 +47,5 @@ func _process(delta: float) -> void:
 		radius = clamp(radius + delta * suck_speed * 0.25, 20.0, base_radius);
 
 func on_game_over() -> void:
-	get_tree().change_scene_to_file("res://scenes/title_screen.tscn");	
+	Global.save_high_score();
+	get_tree().change_scene_to_file("res://scenes/death_screen.tscn");	
